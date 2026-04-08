@@ -35,6 +35,12 @@ def db_init():
             inhalt TEXT,
             erstellt_am TEXT
         )""")
+        con.execute("""CREATE TABLE IF NOT EXISTS feedback (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            kategorie TEXT,
+            nachricht TEXT,
+            erstellt_am TEXT
+        )""")
 
 
 db_init()
@@ -108,6 +114,30 @@ def favorit_speichern():
 def favorit_loeschen(fav_id):
     db_loeschen(fav_id)
     return redirect(url_for("favoriten"))
+
+
+@app.route("/feedback", methods=["GET", "POST"])
+def feedback():
+    gesendet = False
+    if request.method == "POST":
+        kategorie = request.form.get("kategorie", "Sonstiges")
+        nachricht = request.form.get("nachricht", "").strip()
+        if nachricht:
+            with sqlite3.connect(DB_PATH) as con:
+                con.execute(
+                    "INSERT INTO feedback (kategorie, nachricht, erstellt_am) VALUES (?,?,?)",
+                    (kategorie, nachricht, datetime.now().isoformat()),
+                )
+            gesendet = True
+    return render_template("feedback.html", gesendet=gesendet)
+
+
+@app.route("/feedback/admin")
+def feedback_admin():
+    with sqlite3.connect(DB_PATH) as con:
+        con.row_factory = sqlite3.Row
+        eintraege = con.execute("SELECT * FROM feedback ORDER BY erstellt_am DESC").fetchall()
+    return render_template("feedback_admin.html", eintraege=eintraege)
 
 
 @app.route("/arbeitsblatt", methods=["GET", "POST"])
