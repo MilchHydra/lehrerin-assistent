@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
 SYSTEM_PROMPT = """Du bist ein Assistent für eine Primarlehrerin der 1. Klasse (6-7-jährige Kinder, Schweiz, Lehrplan 21).
 Du erstellst altersgerechte, praxisnahe Unterrichtsmaterialien auf Deutsch.
@@ -15,13 +14,17 @@ Formatiere deine Ausgabe übersichtlich mit Markdown."""
 
 
 def frage_claude(prompt):
-    message = client.messages.create(
+    claude = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    message = claude.messages.create(
         model="claude-opus-4-6",
         max_tokens=2048,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": prompt}],
     )
     return message.content[0].text
+
+
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
 
 
 @app.route("/")
