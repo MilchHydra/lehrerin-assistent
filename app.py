@@ -3,7 +3,7 @@ import sqlite3
 import json
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
-import requests
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -65,15 +65,13 @@ Formatiere deine Ausgabe übersichtlich mit Markdown."""
 
 
 def frage_ki(prompt):
-    key = os.environ["GEMINI_API_KEY"]
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={key}"
-    payload = {
-        "contents": [{"parts": [{"text": SYSTEM_PROMPT + "\n\n" + prompt}]}],
-        "generationConfig": {"maxOutputTokens": 2048},
-    }
-    resp = requests.post(url, json=payload, timeout=60)
-    resp.raise_for_status()
-    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    model = genai.GenerativeModel(
+        model_name="gemini-2.0-flash",
+        system_instruction=SYSTEM_PROMPT,
+    )
+    response = model.generate_content(prompt)
+    return response.text
 
 
 @app.route("/")
