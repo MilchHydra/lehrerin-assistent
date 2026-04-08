@@ -1,12 +1,50 @@
 import os
+import sqlite3
+import json
+from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
 import google.generativeai as genai
-from flask import Flask, render_template, request
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
+
+DB_PATH = os.environ.get("DB_PATH", "favoriten.db")
+
+
+def db_init():
+    with sqlite3.connect(DB_PATH) as con:
+        con.execute("""CREATE TABLE IF NOT EXISTS favoriten (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            typ TEXT,
+            titel TEXT,
+            inhalt TEXT,
+            erstellt_am TEXT
+        )""")
+
+
+db_init()
+
+
+def db_speichern(typ, titel, inhalt):
+    with sqlite3.connect(DB_PATH) as con:
+        con.execute(
+            "INSERT INTO favoriten (typ, titel, inhalt, erstellt_am) VALUES (?,?,?,?)",
+            (typ, titel, inhalt, datetime.now().isoformat()),
+        )
+
+
+def db_alle():
+    with sqlite3.connect(DB_PATH) as con:
+        con.row_factory = sqlite3.Row
+        return con.execute("SELECT * FROM favoriten ORDER BY erstellt_am DESC").fetchall()
+
+
+def db_loeschen(fav_id):
+    with sqlite3.connect(DB_PATH) as con:
+        con.execute("DELETE FROM favoriten WHERE id=?", (fav_id,))
 
 SYSTEM_PROMPT = """Du bist ein Assistent für eine Primarlehrerin der 1. Klasse (6-7-jährige Kinder, Schweiz, Lehrplan 21).
 Du erstellst altersgerechte, praxisnahe Unterrichtsmaterialien auf Deutsch.
@@ -27,6 +65,34 @@ def frage_ki(prompt):
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/themen")
+def themen():
+    with open("themen.json", encoding="utf-8") as f:
+        daten = json.load(f)
+    return render_template("themen.html", themen=daten)
+
+
+@app.route("/favoriten")
+def favoriten():
+    return render_template("favoriten.html", favoriten=db_alle())
+
+
+@app.route("/favoriten/speichern", methods=["POST"])
+def favorit_speichern():
+    db_speichern(
+        request.form.get("typ"),
+        request.form.get("titel"),
+        request.form.get("inhalt"),
+    )
+    return redirect(url_for("favoriten"))
+
+
+@app.route("/favoriten/loeschen/<int:fav_id>")
+def favorit_loeschen(fav_id):
+    db_loeschen(fav_id)
+    return redirect(url_for("favoriten"))
 
 
 @app.route("/arbeitsblatt", methods=["GET", "POST"])

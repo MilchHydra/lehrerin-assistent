@@ -1,0 +1,80 @@
+{
+  "Deutsch": {
+    "Arbeitsblatt": [
+      {"titel": "Buchstabe A", "thema": "Buchstabe A – erkennen, schreiben, Wörter finden"},
+      {"titel": "Buchstabe B", "thema": "Buchstabe B – erkennen, schreiben, Wörter finden"},
+      {"titel": "Buchstabe M", "thema": "Buchstabe M – erkennen, schreiben, Wörter finden"},
+      {"titel": "Buchstabe S", "thema": "Buchstabe S – erkennen, schreiben, Wörter finden"},
+      {"titel": "Silben klatschen", "thema": "Silben erkennen und klatschen bei 2-3 silbigen Wörtern"},
+      {"titel": "Anlaute", "thema": "Anlaut erkennen – welcher Buchstabe beginnt das Wort?"},
+      {"titel": "Einfache Sätze", "thema": "Einfache Sätze lesen und abschreiben"},
+      {"titel": "Gross- und Kleinschreibung", "thema": "Nomen gross schreiben – Übungen zur Grossschreibung"},
+      {"titel": "Reimwörter", "thema": "Reimwörter erkennen und ergänzen"},
+      {"titel": "Wortschatz Tiere", "thema": "Tiernamen lesen, schreiben und zuordnen"},
+      {"titel": "Wortschatz Farben", "thema": "Farben benennen, lesen und schreiben"},
+      {"titel": "Wortschatz Familie", "thema": "Familienmitglieder benennen und Sätze bilden"}
+    ],
+    "Lektionsplan": [
+      {"titel": "Einführung Buchstabe L", "thema": "Einführung des Buchstabens L mit Laut-Buchstaben-Zuordnung"},
+      {"titel": "Freies Schreiben", "thema": "Freies Schreiben mit Anlauttabelle"},
+      {"titel": "Bilderbuch vorlesen", "thema": "Bilderbuch gemeinsam lesen und besprechen"},
+      {"titel": "Wörter mit ie", "thema": "Lange Vokale – Wörter mit ie erkennen und schreiben"}
+    ]
+  },
+  "Mathe": {
+    "Arbeitsblatt": [
+      {"titel": "Zahlen 1–10", "thema": "Zahlen 1 bis 10 schreiben, zählen und zuordnen"},
+      {"titel": "Zahlen 11–20", "thema": "Zahlen 11 bis 20 – Zehner und Einer verstehen"},
+      {"titel": "Mengen zuordnen", "thema": "Mengen zählen und der richtigen Zahl zuordnen"},
+      {"titel": "Plus bis 10", "thema": "Einfache Addition bis 10 mit Bildunterstützung"},
+      {"titel": "Minus bis 10", "thema": "Einfache Subtraktion bis 10 mit Bildunterstützung"},
+      {"titel": "Plus und Minus bis 20", "thema": "Addition und Subtraktion bis 20"},
+      {"titel": "Formen erkennen", "thema": "Geometrische Formen erkennen: Kreis, Quadrat, Dreieck, Rechteck"},
+      {"titel": "Vergleichen", "thema": "Zahlen vergleichen mit grösser, kleiner, gleich (>, <, =)"},
+      {"titel": "Ergänzen bis 10", "thema": "Ergänzungsaufgaben: Was fehlt bis 10?"},
+      {"titel": "Geld kennenlernen", "thema": "Münzen erkennen und einfache Beträge zusammenzählen"},
+      {"titel": "Muster fortsetzen", "thema": "Muster erkennen und weiterführen"},
+      {"titel": "Längen vergleichen", "thema": "Längen schätzen und vergleichen (länger, kürzer, gleich lang)"}
+    ],
+    "Lektionsplan": [
+      {"titel": "Einführung Zahlenraum bis 20", "thema": "Einführung des Zahlenraums bis 20 mit Zwanzigerfeld"},
+      {"titel": "Addition spielerisch", "thema": "Addition bis 10 mit Würfelspielen und Materialien"},
+      {"titel": "Geometrie: Formen", "thema": "Geometrische Formen im Alltag entdecken und benennen"}
+    ]
+  },
+  "Sachkunde": {
+    "Arbeitsblatt": [
+      {"titel": "Jahreszeiten", "thema": "Die vier Jahreszeiten – Merkmale erkennen und zuordnen"},
+      {"titel": "Frühling", "thema": "Frühling – Blumen, Tiere, Wetter im Frühling"},
+      {"titel": "Sommer", "thema": "Sommer – typische Aktivitäten, Tiere und Pflanzen"},
+      {"titel": "Herbst", "thema": "Herbst – Blätter, Ernte, Tiere im Herbst"},
+      {"titel": "Winter", "thema": "Winter – Schnee, Tiere im Winter, Winterkleidung"},
+      {"titel": "Mein Körper", "thema": "Körperteile benennen und zeigen"},
+      {"titel": "Gesunde Ernährung", "thema": "Gesunde und ungesunde Lebensmittel unterscheiden"},
+      {"titel": "Bauernhoftiere", "thema": "Tiere auf dem Bauernhof – Namen, Geräusche, Nutzen"},
+      {"titel": "Wildtiere Wald", "thema": "Wildtiere im Wald erkennen und benennen"},
+      {"titel": "Meine Familie", "thema": "Familienmitglieder und Rollen in der Familie"},
+      {"titel": "Wetter", "thema": "Wetterphänomene beobachten und beschreiben"},
+      {"titel": "Verkehr & Sicherheit", "thema": "Strassenverkehr – sicher unterwegs als Fussgänger"}
+    ],
+    "Lektionsplan": [
+      {"titel": "Frühling entdecken", "thema": "Frühlingssymbole entdecken – Spaziergang und Beobachtung"},
+      {"titel": "Mein Körper", "thema": "Körperteile benennen und Körperhygiene besprechen"}
+    ]
+  },
+  "Kreatives Gestalten": {
+    "Aktivitäten": [
+      {"titel": "Jahreszeiten-Bild", "thema": "Bild zur aktuellen Jahreszeit malen"},
+      {"titel": "Fingerabdruck-Tiere", "thema": "Tiere aus Fingerabdrücken gestalten"},
+      {"titel": "Collagen basteln", "thema": "Collagen aus Zeitschriften und Naturmaterialien"},
+      {"titel": "Muster drucken", "thema": "Stempelmuster mit Alltagsgegenständen drucken"}
+    ]
+  },
+  "Sport": {
+    "Aktivitäten": [
+      {"titel": "Bewegungsparcours", "thema": "Einfacher Bewegungsparcours in der Turnhalle"},
+      {"titel": "Ballspiele", "thema": "Einfache Ballspiele für die ganze Klasse"},
+      {"titel": "Tanzen & Rhythmus", "thema": "Einfache Tanzschritte und Rhythmusübungen"}
+    ]
+  }
+}

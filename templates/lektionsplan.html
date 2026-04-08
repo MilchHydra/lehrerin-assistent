@@ -50,9 +50,19 @@
         <div class="card shadow-sm border-0">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
                 <span class="fw-semibold">Ergebnis</span>
-                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
-                    <i class="bi bi-printer me-1"></i>Drucken
-                </button>
+                <div class="d-flex gap-2">
+                    <form method="POST" action="/favoriten/speichern">
+                        <input type="hidden" name="typ" value="Lektionsplan">
+                        <input type="hidden" name="titel" value="{{ form.fach }} – {{ form.thema }}">
+                        <input type="hidden" name="inhalt" value="{{ result }}">
+                        <button type="submit" class="btn btn-sm btn-outline-warning">
+                            <i class="bi bi-star me-1"></i>Speichern
+                        </button>
+                    </form>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                        <i class="bi bi-printer me-1"></i>Drucken
+                    </button>
+                </div>
             </div>
             <div class="card-body">
                 <div class="markdown-body">{{ result }}</div>
