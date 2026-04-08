@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Aktivitäten & Spiele{% endblock %}
+{% block content %}
+
+<h2 class="mb-4"><i class="bi bi-lightning-fill text-danger me-2"></i>Aktivitäten & Spiele</h2>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Ort</label>
+                        <select name="ort" class="form-select">
+                            <option value="drinnen">Drinnen (Klassenzimmer)</option>
+                            <option value="draussen">Draussen (Schulhof/Natur)</option>
+                            <option value="Turnhalle">Turnhalle</option>
+                            <option value="drinnen und draussen">Beides möglich</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Thema / Fach <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" name="thema" class="form-control" placeholder="z.B. Frühling, Buchstaben, Zahlen, frei" value="{{ form.thema if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Art der Aktivität</label>
+                        <select name="typ" class="form-select">
+                            <option value="gemischt">Gemischt</option>
+                            <option value="Bewegungsspiele">Bewegungsspiele</option>
+                            <option value="kreative Aufgaben">Kreativ & Basteln</option>
+                            <option value="Sprachspiele">Sprachspiele & Reime</option>
+                            <option value="Mathespiele">Mathe-Spiele</option>
+                            <option value="ruhige Aktivitäten">Ruhige Aktivitäten</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Anzahl Ideen</label>
+                        <select name="anzahl" class="form-select">
+                            <option value="3">3 Ideen</option>
+                            <option value="5" selected>5 Ideen</option>
+                            <option value="8">8 Ideen</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-stars me-1"></i>Ideen generieren
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if result %}
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Ergebnis</span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i>Drucken
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="markdown-body">{{ result }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card border-0 bg-light h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-lightning fs-1 mb-3 d-block"></i>
+                <p>Wähle die Optionen aus und klicke auf «Ideen generieren».</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

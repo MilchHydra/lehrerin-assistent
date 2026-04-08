@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Arbeitsblatt erstellen{% endblock %}
+{% block content %}
+
+<h2 class="mb-4"><i class="bi bi-file-text-fill text-primary me-2"></i>Arbeitsblatt erstellen</h2>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Fach</label>
+                        <select name="fach" class="form-select" required>
+                            <option value="Deutsch">Deutsch</option>
+                            <option value="Mathe">Mathe</option>
+                            <option value="Sachkunde">Sachkunde</option>
+                            <option value="Kreatives Gestalten">Kreatives Gestalten</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Thema</label>
+                        <input type="text" name="thema" class="form-control" placeholder="z.B. Buchstabe S, Zahlen bis 10, Frühling" required value="{{ form.thema if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Anzahl Aufgaben</label>
+                        <select name="aufgaben" class="form-select">
+                            <option value="4">4 Aufgaben</option>
+                            <option value="6" selected>6 Aufgaben</option>
+                            <option value="8">8 Aufgaben</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Schwierigkeit</label>
+                        <select name="schwierigkeit" class="form-select">
+                            <option value="einfach">Einfach</option>
+                            <option value="mittel" selected>Mittel</option>
+                            <option value="anspruchsvoll">Anspruchsvoll</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Besonderes <span class="text-muted fw-normal">(optional)</span></label>
+                        <textarea name="extras" class="form-control" rows="2" placeholder="z.B. viel Platz zum Schreiben, mit Bildern...">{{ form.extras if form else '' }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-stars me-1"></i>Arbeitsblatt erstellen
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if result %}
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Ergebnis</span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i>Drucken
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="markdown-body">{{ result }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card border-0 bg-light h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-file-text fs-1 mb-3 d-block"></i>
+                <p>Fülle das Formular aus und klicke auf «Arbeitsblatt erstellen».</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

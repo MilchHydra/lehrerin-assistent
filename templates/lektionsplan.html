@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Lektionsplan erstellen{% endblock %}
+{% block content %}
+
+<h2 class="mb-4"><i class="bi bi-calendar3-fill text-success me-2"></i>Lektionsplan erstellen</h2>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Fach</label>
+                        <select name="fach" class="form-select" required>
+                            <option value="Deutsch">Deutsch</option>
+                            <option value="Mathe">Mathe</option>
+                            <option value="Sachkunde">Sachkunde</option>
+                            <option value="Sport">Sport</option>
+                            <option value="Musik">Musik</option>
+                            <option value="Kreatives Gestalten">Kreatives Gestalten</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Thema</label>
+                        <input type="text" name="thema" class="form-control" placeholder="z.B. Einführung Buchstabe M, Zahlen bis 20" required value="{{ form.thema if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Dauer (Minuten)</label>
+                        <select name="dauer" class="form-select">
+                            <option value="30">30 Minuten</option>
+                            <option value="45" selected>45 Minuten</option>
+                            <option value="60">60 Minuten</option>
+                            <option value="90">90 Minuten (Doppellektion)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Lernziele <span class="text-muted fw-normal">(optional)</span></label>
+                        <textarea name="lernziele" class="form-control" rows="3" placeholder="z.B. Die Kinder können den Buchstaben M erkennen und schreiben">{{ form.lernziele if form else '' }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-stars me-1"></i>Lektionsplan erstellen
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if result %}
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Ergebnis</span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i>Drucken
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="markdown-body">{{ result }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card border-0 bg-light h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-calendar3 fs-1 mb-3 d-block"></i>
+                <p>Fülle das Formular aus und klicke auf «Lektionsplan erstellen».</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

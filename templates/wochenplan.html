@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Wochenplan erstellen{% endblock %}
+{% block content %}
+
+<h2 class="mb-4"><i class="bi bi-calendar-week-fill text-info me-2"></i>Wochenplan erstellen</h2>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Kalenderwoche <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" name="kw" class="form-control" placeholder="z.B. KW 15 / 7.-11. April" value="{{ form.kw if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Wochenschwerpunkt <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" name="schwerpunkt" class="form-control" placeholder="z.B. Frühling, Zahlenraum bis 20" value="{{ form.schwerpunkt if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Fächer</label>
+                        <div class="row g-2">
+                            {% for fach in ['Deutsch', 'Mathe', 'Sachkunde', 'Sport', 'Musik', 'Kreatives Gestalten', 'Religion/Ethik'] %}
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="faecher" value="{{ fach }}" id="fach_{{ loop.index }}"
+                                        {% if not form or fach in (form.getlist('faecher') or ['Deutsch','Mathe','Sachkunde']) %}checked{% endif %}>
+                                    <label class="form-check-label" for="fach_{{ loop.index }}">{{ fach }}</label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info text-white w-100">
+                        <i class="bi bi-stars me-1"></i>Wochenplan erstellen
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if result %}
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Ergebnis</span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i>Drucken
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="markdown-body">{{ result }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card border-0 bg-light h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-calendar-week fs-1 mb-3 d-block"></i>
+                <p>Fülle das Formular aus und klicke auf «Wochenplan erstellen».</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Elternbrief schreiben{% endblock %}
+{% block content %}
+
+<h2 class="mb-4"><i class="bi bi-envelope-fill text-warning me-2"></i>Elternbrief schreiben</h2>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Anlass</label>
+                        <input type="text" name="anlass" class="form-control" placeholder="z.B. Schulausflug, Elternabend, Projektwoche" required value="{{ form.anlass if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Datum / Termin <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" name="datum" class="form-control" placeholder="z.B. 20. Mai 2026, 19:00 Uhr" value="{{ form.datum if form else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Details <span class="text-muted fw-normal">(optional)</span></label>
+                        <textarea name="details" class="form-control" rows="3" placeholder="z.B. Treffpunkt, was mitbringen, Kosten, Rückkehrzeit...">{{ form.details if form else '' }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Eltern müssen zurückmelden?</label>
+                        <select name="rueckmeldung" class="form-select">
+                            <option value="nein">Nein</option>
+                            <option value="ja, mit Talon">Ja — mit Talon/Abschnitt</option>
+                            <option value="ja, per Mail">Ja — per E-Mail</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100">
+                        <i class="bi bi-stars me-1"></i>Brief erstellen
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        {% if result %}
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Ergebnis</span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i>Drucken
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="markdown-body">{{ result }}</div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card border-0 bg-light h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-muted p-5">
+                <i class="bi bi-envelope fs-1 mb-3 d-block"></i>
+                <p>Fülle das Formular aus und klicke auf «Brief erstellen».</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

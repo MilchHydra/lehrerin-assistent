@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Lehrerin-Assistent – Startseite{% endblock %}
+{% block content %}
+
+<div class="text-center mb-5">
+    <h1 class="display-5 fw-bold text-primary">
+        <i class="bi bi-mortarboard-fill me-2"></i>Lehrerin-Assistent
+    </h1>
+    <p class="lead text-muted">Dein KI-Assistent für die 1. Klasse &mdash; Materialien erstellen leicht gemacht.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+        <a href="/arbeitsblatt" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-primary-subtle mb-3">
+                        <i class="bi bi-file-text-fill text-primary fs-2"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Arbeitsblatt</h5>
+                    <p class="card-text text-muted">Übungsblätter für Deutsch, Mathe oder Sachkunde — druckfertig und altersgerecht.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <a href="/lektionsplan" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-success-subtle mb-3">
+                        <i class="bi bi-calendar3-fill text-success fs-2"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Lektionsplan</h5>
+                    <p class="card-text text-muted">Strukturierte Lektionsplanung mit Einstieg, Hauptteil und Abschluss.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <a href="/wochenplan" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-info-subtle mb-3">
+                        <i class="bi bi-calendar-week-fill text-info fs-2"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Wochenplan</h5>
+                    <p class="card-text text-muted">Übersichtlicher Wochenplan mit Lernzielen und Aktivitäten für alle Fächer.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <a href="/elternbrief" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-warning-subtle mb-3">
+                        <i class="bi bi-envelope-fill text-warning fs-2"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Elternbrief</h5>
+                    <p class="card-text text-muted">Freundliche Elternbriefe für Ausflüge, Elternabende oder Infos — in Sekunden.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <a href="/aktivitaeten" class="text-decoration-none">
+            <div class="card h-100 shadow-sm border-0 card-hover">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-danger-subtle mb-3">
+                        <i class="bi bi-lightning-fill text-danger fs-2"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Aktivitäten & Spiele</h5>
+                    <p class="card-text text-muted">Kreative Ideen für drinnen und draussen — Bewegung, Spiel und Lernen.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lehrerin-Assistent{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="bi bi-mortarboard-fill me-2"></i>Lehrerin-Assistent
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/arbeitsblatt"><i class="bi bi-file-text me-1"></i>Arbeitsblatt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lektionsplan"><i class="bi bi-calendar3 me-1"></i>Lektionsplan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/wochenplan"><i class="bi bi-calendar-week me-1"></i>Wochenplan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/elternbrief"><i class="bi bi-envelope me-1"></i>Elternbrief</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aktivitaeten"><i class="bi bi-lightning me-1"></i>Aktivitäten</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="text-center text-muted py-3 mt-4 border-top">
+        <small>Lehrerin-Assistent &mdash; 1. Klasse, Schweiz &mdash; Powered by Claude AI</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Render all markdown result containers
+        document.querySelectorAll('.markdown-body').forEach(el => {
+            el.innerHTML = marked.parse(el.textContent);
+        });
+    </script>
+</body>
+</html>
