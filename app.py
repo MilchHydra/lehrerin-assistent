@@ -1,11 +1,12 @@
 import os
-from flask import Flask, render_template, request, jsonify
-from anthropic import Anthropic
+import google.generativeai as genai
+from flask import Flask, render_template, request
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
 
 SYSTEM_PROMPT = """Du bist ein Assistent für eine Primarlehrerin der 1. Klasse (6-7-jährige Kinder, Schweiz, Lehrplan 21).
 Du erstellst altersgerechte, praxisnahe Unterrichtsmaterialien auf Deutsch.
@@ -13,18 +14,14 @@ Bei Arbeitsblättern: klare Aufgaben, grosse Schrift, immer Name- und Datumszeil
 Formatiere deine Ausgabe übersichtlich mit Markdown."""
 
 
-def frage_claude(prompt):
-    claude = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    message = claude.messages.create(
-        model="claude-opus-4-6",
-        max_tokens=2048,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": prompt}],
+def frage_ki(prompt):
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    model = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        system_instruction=SYSTEM_PROMPT,
     )
-    return message.content[0].text
-
-
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
+    response = model.generate_content(prompt)
+    return response.text
 
 
 @app.route("/")
@@ -56,7 +53,7 @@ Format:
 - Am Ende: Smiley-Bewertung (😊 😐 😔)
 - Formatiere es übersichtlich mit Markdown"""
 
-        result = frage_claude(prompt)
+        result = frage_ki(prompt)
         return render_template("arbeitsblatt.html", result=result, form=request.form)
     return render_template("arbeitsblatt.html", result=None)
 
@@ -83,7 +80,7 @@ Struktur:
 - Materialien und Hilfsmittel
 - Hinweise zur Differenzierung (für schnellere und langsamere Kinder)"""
 
-        result = frage_claude(prompt)
+        result = frage_ki(prompt)
         return render_template("lektionsplan.html", result=result, form=request.form)
     return render_template("lektionsplan.html", result=None)
 
@@ -106,7 +103,7 @@ Erstelle eine übersichtliche Tabelle (Montag-Freitag) mit:
 - Kurzen Aktivitätsbeschreibungen
 - Hinweisen zu Hausaufgaben falls sinnvoll"""
 
-        result = frage_claude(prompt)
+        result = frage_ki(prompt)
         return render_template("wochenplan.html", result=result, form=request.form)
     return render_template("wochenplan.html", result=None)
 
@@ -133,7 +130,7 @@ Format:
 - Professionelle Grussformel
 - Falls Rückmeldung nötig: Talon/Abschnitt am Ende"""
 
-        result = frage_claude(prompt)
+        result = frage_ki(prompt)
         return render_template("elternbrief.html", result=result, form=request.form)
     return render_template("elternbrief.html", result=None)
 
@@ -159,7 +156,7 @@ Für jede Idee:
 - Dauer ca.
 - Lernwert / Ziel"""
 
-        result = frage_claude(prompt)
+        result = frage_ki(prompt)
         return render_template("aktivitaeten.html", result=result, form=request.form)
     return render_template("aktivitaeten.html", result=None)
 
