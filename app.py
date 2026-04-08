@@ -3,13 +3,26 @@ import sqlite3
 import json
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
-from groq import Groq
+from google import genai
+from google.genai import types
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
+
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    msg = str(e)
+    if "429" in msg or "quota" in msg.lower():
+        fehler = "⚠️ API-Limit erreicht. Bitte kurz warten und nochmal versuchen."
+    elif "401" in msg or "403" in msg or "API_KEY" in msg.upper():
+        fehler = "⚠️ API-Key ungültig. Bitte Administrator informieren."
+    else:
+        fehler = f"⚠️ Fehler: {msg[:200]}"
+    return render_template("fehler.html", fehler=fehler), 500
 
 DB_PATH = os.environ.get("DB_PATH", "favoriten.db")
 
@@ -53,16 +66,16 @@ Formatiere deine Ausgabe übersichtlich mit Markdown."""
 
 
 def frage_ki(prompt):
-    client = Groq(api_key=os.environ["GROQ_API_KEY"])
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        max_tokens=2048,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            max_output_tokens=2048,
+        ),
+        contents=prompt,
     )
-    return response.choices[0].message.content
+    return response.text
 
 
 @app.route("/")
