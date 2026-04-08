@@ -3,7 +3,7 @@ import sqlite3
 import json
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
-import google.generativeai as genai
+from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -65,13 +65,16 @@ Formatiere deine Ausgabe übersichtlich mit Markdown."""
 
 
 def frage_ki(prompt):
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    model = genai.GenerativeModel(
-        model_name="gemini-2.0-flash",
-        system_instruction=SYSTEM_PROMPT,
+    client = Groq(api_key=os.environ["GROQ_API_KEY"])
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        max_tokens=2048,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
     )
-    response = model.generate_content(prompt)
-    return response.text
+    return response.choices[0].message.content
 
 
 @app.route("/")
